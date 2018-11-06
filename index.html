@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Counter Example
+		</title>
+	</head>
+	<body>
+		<div>Counter: <input type='button' value="1" data-counter></div>
+		<div>Another Counter: <input type="button" value="2" data-counter></div>
+
+		<script>
+			document.addEventListener('click', (event) => {
+				if (event.target.dataset.counter !== undefined) {
+					event.target.value++;
+				}
+			});
+			function load(ele) {
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', ele.getAttribute('src'), true);
+				xhr.onload = () => {
+					if (xhr.readyState === 4 && xhr.status === 200) {
+						console.log(xhr.responseText);
+						ele.innerHTML = xhr.responseText;
+					}
+				}
+				xhr.send()
+			}
+			window.onload = () => {
+				console.log("inisde onreadysattechange");
+				let listofTags = document.getElementsByTagName("load");
+				console.log(listofTags);
+				Array.from(listofTags).forEach((item) => {
+					console.log(item.getAttribute('src'));
+					load(item);
+				});
+			}
+		</script>
+		<load src="./components/counter.html"></load>
+	</body>
+</html>
